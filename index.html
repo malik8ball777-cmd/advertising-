@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EASY MONEY — Advertising / Plans</title>
+  <style>
+    /* Color palette: red, green, yellow, white (no blue) */
+    :root{
+      --bg: #fff;
+      --card: #f8f8f5;
+      --accent-red: #d92727;
+      --accent-green: #27a64f;
+      --accent-yellow: #f1c40f;
+      --text: #222;
+      --muted: #666;
+      --glass: rgba(255,255,255,0.8);
+    }
+    *{box-sizing:border-box;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{margin:0;background:linear-gradient(180deg,#fff 0%, #fff9e6 100%);color:var(--text);}
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--card);box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent-red),var(--accent-green));display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    .title{font-size:18px;font-weight:700}
+    main{display:flex;gap:18px;padding:20px;min-height:calc(100vh - 84px)}
+    /* LEFT SIDEBAR / MENU */
+    nav{width:260px;background:var(--card);border-radius:12px;padding:12px;height:fit-content}
+    .menu-btn{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;cursor:pointer}
+    .menu-btn:hover{background:rgba(0,0,0,0.03)}
+    .menu-item{padding:10px 12px;border-radius:8px;margin:6px 0;cursor:pointer}
+    .menu-item.active{background:linear-gradient(90deg,var(--accent-yellow),#fff);font-weight:700}
+    .invite-box{margin-top:12px;padding:10px;border-radius:10px;background:#fff7d6}
+    .plan{border-radius:12px;padding:12px;background:linear-gradient(180deg,#fff,#fffaf0);box-shadow:0 6px 14px rgba(0,0,0,0.04);}
+    /* RIGHT CONTENT */
+    section.content{flex:1}
+    .card{background:var(--card);padding:18px;border-radius:12px;margin-bottom:16px}
+    .profile-top{display:flex;gap:14px;align-items:center}
+    .avatar{width:82px;height:82px;border-radius:16px;background:linear-gradient(135deg,var(--accent-green),var(--accent-red));display:flex;align-items:center;justify-content:center;color:white;font-size:28px}
+    input,select,textarea,button{font-family:inherit}
+    input,select,textarea{padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);width:100%}
+    .row{display:flex;gap:12px}
+    .col{flex:1}
+    button{padding:10px 14px;border-radius:8px;border:0;cursor:pointer;background:var(--accent-green);color:#fff;font-weight:700}
+    .danger{background:var(--accent-red)}
+    .secondary{background:transparent;border:1px solid rgba(0,0,0,0.08);color:var(--text);font-weight:600}
+    footer.small{font-size:12px;color:var(--muted);padding:14px}
+    .small{font-size:13px;color:var(--muted)}
+    .plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .muted{color:var(--muted)}
+    a.inline{color:var(--accent-red);text-decoration:none;font-weight:700}
+    /* responsive */
+    @media(max-width:900px){nav{display:none}main{padding:12px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">EM</div>
+      <div>
+        <div class="title">EASY MONEY</div>
+        <div class="small">Advertising & earnings</div>
+      </div>
+    </div>
+    <div>
+      <span class="small">Need help? <a class="inline" href="https://whatsapp.com/channel/0029Vb6Gx7LKWEKrxZVXWK0o" target="_blank">WhatsApp channel</a></span>
+    </div>
+  </header>
+
+  <main>
+    <nav id="leftNav">
+      <div class="menu-btn" style="justify-content:space-between">
+        <div style="font-weight:700">Menu</div>
+        <div class="small muted">Logged as <span id="navUser">Guest</span></div>
+      </div>
+      <div class="menu-item active" data-page="profile">Profile</div>
+      <div class="menu-item" data-page="plans">Plans</div>
+      <div class="menu-item" data-page="deposit">Deposit</div>
+      <div class="menu-item" data-page="withdraw">Withdraw</div>
+      <div class="menu-item" data-page="invite">Invite</div>
+      <div class="menu-item" data-page="helpline">Helpline</div>
+      <div class="menu-item danger" id="logoutBtn">Logout</div>
+
+      <div class="invite-box">
+        <div style="font-weight:700">Invite & Earn</div>
+        <div class="small">Share your invite link — get referral rewards when they buy plans.</div>
+      </div>
+    </nav>
+
+    <section class="content">
+
+      <!-- LOGIN / SIGNUP overlay -->
+      <div id="authOverlay" class="card" style="max-width:720px;margin-bottom:18px">
+        <h3 id="authTitle">Login or Sign up</h3>
+        <div id="authForms" style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:280px">
+            <h4>Sign up</h4>
+            <div class="small muted">Create account. New users should sign up so admin can approve deposits.</div>
+            <div style="margin-top:8px">
+              <label>Full name</label>
+              <input id="signupName" placeholder="e.g. Rehan" />
+            </div>
+            <div style="margin-top:8px">
+              <label>Gmail</label>
+              <input id="signupEmail" placeholder="you@gmail.com" />
+            </div>
+            <div style="margin-top:8px">
+              <label>Password</label>
+              <input id="signupPass" type="password" placeholder="password" />
+            </div>
+            <div style="margin-top:8px">
+              <button id="signupBtn">Sign up (request approval)</button>
+            </div>
+            <div class="small muted" style="margin-top:8px">On sign up you'll be asked to request admin approval via WhatsApp. Admin approval required for deposits.</div>
+          </div>
+
+          <div style="flex:1;min-width:260px">
+            <h4>Login</h4>
+            <div style="margin-top:8px">
+              <label>Gmail</label>
+              <input id="loginEmail" placeholder="you@gmail.com" />
+            </div>
+            <div style="margin-top:8px">
+              <label>Password</label>
+              <input id="loginPass" type="password" placeholder="password" />
+            </div>
+            <div style="margin-top:8px">
+              <button id="loginBtn">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROFILE -->
+      <div id="page_profile" class="card">
+        <div class="profile-top">
+          <div class="avatar" id="profilePic">A</div>
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="font-size:18px;font-weight:800" id="profileName">Guest User</div>
+                <div class="small muted" id="profileEmail">not logged in</div>
+              </div>
+              <div style="text-align:right">
+                <div class="small muted">Balance</div>
+                <div style="font-size:20px;font-weight:800" id="profileBalance">PKR 0</div>
+              </div>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:10px">
+              <input type="file" id="picUpload" accept="image/*" />
+              <button id="saveProfile" class="secondary">Save profile</button>
+            </div>
+            <div class="small muted" style="margin-top:8px">AI avatar maker: pick a picture, or use AI to stylize (requires backend integration).</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLANS -->
+      <div id="page_plans" class="card" style="display:none">
+        <h3>Plans</h3>
+        <div class="plan-grid">
+          <div class="plan">
+            <h4>Plan 1</h4>
+            <div class="small muted">Deposit: PKR 500</div>
+            <p style="font-weight:800">Earn daily PKR 30<br/>Referral reward: PKR 150</p>
+            <div class="small">When someone buys Plan 1 using your link you get PKR 150 instantly (simulated).</div>
+            <div style="margin-top:8px"><button class="buy-btn" data-plan="1" data-amount="500">Buy Plan 1 (500 PKR)</button></div>
+          </div>
+
+          <div class="plan">
+            <h4>Plan 2</h4>
+            <div class="small muted">Deposit: PKR 1000</div>
+            <p style="font-weight:800">Earn daily PKR 80<br/>Referral reward: PKR 250</p>
+            <div class="small">When someone buys Plan 2 with your link you get PKR 250 (simulated).</div>
+            <div style="margin-top:8px"><button class="buy-btn" data-plan="2" data-amount="1000">Buy Plan 2 (1000 PKR)</button></div>
+          </div>
+
+          <div class="plan">
+            <h4>Plan 3</h4>
+            <div class="small muted">Deposit: PKR 1500</div>
+            <p style="font-weight:800">Earn daily PKR 120<br/>Referral reward: PKR 400</p>
+            <div class="small">When someone buys Plan 3 with your link you get PKR 400 (simulated).</div>
+            <div style="margin-top:8px"><button class="buy-btn" data-plan="3" data-amount="1500">Buy Plan 3 (1500 PKR)</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEPOSIT -->
+      <div id="page_deposit" class="card" style="display:none">
+        <h3>Deposit (Real wallets)</h3>
+        <p class="small muted">Send money using JazzCash / Easypaisa / Upaisa to the number below. After sending, fill deposit form and send approval request to admin on WhatsApp.</p>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:260px" class="plan">
+            <h4>Wallet number</h4>
+            <p style="font-weight:800">03228786546</p>
+            <div class="small muted">Accepts JazzCash, Easypaisa, Upaisa. (You must have active wallet apps)</div>
+            <div style="margin-top:10px">
+              <label>Amount (PKR)</label>
+              <input id="depositAmount" placeholder="e.g. 500" />
+            </div>
+            <div style="margin-top:10px">
+              <label>Till / Transaction ID</label>
+              <input id="tillId" placeholder="TXN ID or Till ID" />
+            </div>
+            <div style="margin-top:10px">
+              <button id="depositReq">Submit Deposit Request</button>
+            </div>
+            <div class="small muted" style="margin-top:8px">After submitting you'll be given a WhatsApp link to contact admin for approval. Admin must confirm before balance is credited.</div>
+          </div>
+
+          <div style="flex:1;min-width:220px" class="card">
+            <h4>How to pay</h4>
+            <ol>
+              <li>Open JazzCash / Easypaisa / Upaisa on your phone.</li>
+              <li>Send the exact amount to <strong>03228786546</strong>.</li>
+              <li>Copy transaction ID / till ID and paste into the form.</li>
+              <li>Click Submit and send approval message to admin.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- WITHDRAW -->
+      <div id="page_withdraw" class="card" style="display:none">
+        <h3>Withdraw</h3>
+        <div class="small muted">Withdraw to JazzCash / Easypaisa / Upaisa numbers. First-time minimum withdrawal PKR 100. Afterwards minimum is PKR 300.</div>
+        <div style="margin-top:10px;max-width:520px">
+          <label>Amount (PKR)</label>
+          <input id="withdrawAmount" placeholder="e.g. 500" />
+          <div style="margin-top:8px">
+            <label>Receive Wallet Number</label>
+            <input id="withdrawNumber" placeholder="03xxxxxxxxx" />
+          </div>
+          <div style="margin-top:10px"><button id="withdrawReq" class="danger">Request Withdraw</button></div>
+          <div id="withdrawInfo" class="small muted" style="margin-top:8px"></div>
+        </div>
+      </div>
+
+      <!-- INVITE -->
+      <div id="page_invite" class="card" style="display:none">
+        <h3>Invite friends</h3>
+        <div class="small muted">Share your unique invite link. When someone signs up using your link and buys a plan, you receive referral reward (credited after admin confirmation).</div>
+        <div style="margin-top:10px;display:flex;gap:10px;align-items:center">
+          <input id="inviteLink" readonly />
+          <button id="copyInvite">Copy</button>
+        </div>
+      </div>
+
+      <!-- HELPLINE -->
+      <div id="page_helpline" class="card" style="display:none">
+        <h3>Helpline & Info</h3>
+        <p class="small muted">Channel for information and updates:</p>
+        <p><a class="inline" href="https://whatsapp.com/channel/0029Vb6Gx7LKWEKrxZVXWK0o" target="_blank">WhatsApp channel</a></p>
+        <p class="small muted">Admin WhatsApp (for approvals & queries): <a class="inline" id="waAdmin" href="#">Chat admin</a></p>
+        <p class="small muted">Note: For real payments you must coordinate with admin and keep transaction receipts.</p>
+      </div>
+
+      <footer class="small">Built for demonstration. To accept real payments and maintain secure records you need a backend server, database, and payment gateway integrations (not included in this single file).</footer>
+    </section>
+  </main>
+
+  <script>
+    // SIMPLE front-end-only implementation using localStorage to simulate accounts and balances.
+    const adminPhone = '923228786546'; // wa.me number (country code+number) for prefilled link
+    const adminDisplay = '03228786546';
+
+    // Tiny user store (localStorage)
+    const DB_KEY = 'easy_money_users_v1';
+    const SESS_KEY = 'easy_money_session_v1';
+
+    function loadDB(){
+      return JSON.parse(localStorage.getItem(DB_KEY) || '{}');
+    }
+    function saveDB(db){ localStorage.setItem(DB_KEY, JSON.stringify(db)); }
+    function setSession(email){ localStorage.setItem(SESS_KEY, email); }
+    function clearSession(){ localStorage.removeItem(SESS_KEY); }
+    function getSession(){ return localStorage.getItem(SESS_KEY); }
+
+    // Helpers
+    function $(id){return document.getElementById(id)}
+    function showPage(page){
+      document.querySelectorAll('[id^="page_"]').forEach(el=>el.style.display='none');
+      const p = $('page_' + page);
+      if(p) p.style.display='block';
+      document.querySelectorAll('.menu-item').forEach(mi=>mi.classList.toggle('active', mi.dataset.page===page));
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded',()=>{
+      // wire menu
+      document.querySelectorAll('.menu-item').forEach(mi=>mi.addEventListener('click',()=>{
+        const page = mi.dataset.page; if(page) showPage(page);
+      }));
+
+      $('logoutBtn').addEventListener('click',()=>{ clearSession(); render(); alert('Logged out'); });
+
+      // Auth
+      $('signupBtn').addEventListener('click', ()=>{
+        const name = $('signupName').value.trim();
+        const email = $('signupEmail').value.trim().toLowerCase();
+        const pass = $('signupPass').value;
+        if(!name||!email||!pass){return alert('Fill all sign up fields');}
+        const db=loadDB();
+        if(db[email]) return alert('Email already exists. Please login.');
+        db[email] = {name, email, pass, balance:0, approved:false, referrals:[], avatar:null, hasWithdrawn:false};
+        saveDB(db);
+        setSession(email);
+        // prefill WhatsApp message to admin for approval
+        const msg = encodeURIComponent(`Hello admin, I signed up as ${name} (${email}). Please approve my account for deposits.`);
+        window.open(`https://wa.me/${adminPhone}?text=${msg}`,'_blank');
+        render();
+        alert('Signed up. Please request approval via WhatsApp (opened). Admin must approve deposits manually.');
+      });
+
+      $('loginBtn').addEventListener('click', ()=>{
+        const email = $('loginEmail').value.trim().toLowerCase();
+        const pass = $('loginPass').value;
+        const db = loadDB();
+        if(!db[email] || db[email].pass !== pass) return alert('Invalid credentials');
+        setSession(email); render(); alert('Logged in');
+      });
+
+      // profile pic upload
+      $('picUpload').addEventListener('change', (e)=>{
+        const f = e.target.files[0]; if(!f) return;
+        const reader = new FileReader();
+        reader.onload = ()=>{
+          const db=loadDB(); const s=getSession(); if(!s) return alert('Login to save profile');
+          db[s].avatar = reader.result; saveDB(db); render();
+        };
+        reader.readAsDataURL(f);
+      });
+
+      $('saveProfile').addEventListener('click', ()=>{
+        const s=getSession(); if(!s) return alert('Login first');
+        const db=loadDB(); // already saved by upload; we just refresh
+        alert('Profile saved (local).'); render();
+      });
+
+      // buy plan
+      document.querySelectorAll('.buy-btn').forEach(b=>b.addEventListener('click',()=>{
+        const plan = b.dataset.plan; const amount = Number(b.dataset.amount);
+        const s=getSession(); if(!s) return alert('Login to buy a plan');
+        const db=loadDB(); const user=db[s];
+        if(!user.approved) return alert('Your account is not approved by admin yet for deposits and purchases. Please contact admin via WhatsApp.');
+        // In real site, you MUST process payment and verify txn. Here we simulate by deducting from balance.
+        if(user.balance < amount) return alert('Insufficient balance. Please deposit via wallets and ask admin to credit.');
+        user.balance -= amount;
+        // add daily earning schedule (simulated: instantly add first day's earning)
+        let dailyEarn = 0; let refReward=0;
+        if(plan==='1'){ dailyEarn=30; refReward=150;} else if(plan==='2'){ dailyEarn=80; refReward=250;} else {dailyEarn=120; refReward=400}
+        // give user the immediate first-day earning as demo
+        user.balance += dailyEarn;
+        // if signed up with ref param stored in localStorage.ref_by, credit referrer
+        const refKey = localStorage.getItem('easy_money_ref_by');
+        if(refKey){
+          const db2 = db;
+          if(db2[refKey]){ db2[refKey].balance += refReward; db2[refKey].referrals.push(user.email || s); alert('Referral reward credited to referrer (simulated).'); }
+        }
+        saveDB(db);
+        render(); alert('Plan purchased (simulated). Daily earning applied (demo).');
+      }));
+
+      // deposit
+      $('depositReq').addEventListener('click', ()=>{
+        const amt = Number($('depositAmount').value);
+        const tid = $('tillId').value.trim();
+        const s=getSession(); if(!s) return alert('Login to submit deposit request');
+        if(!amt || !tid) return alert('Enter amount and transaction/till id');
+        // instruct admin message
+        const msg = encodeURIComponent(`Hello admin, I (${s}) sent PKR ${amt} to ${adminDisplay}. TXN/Till ID: ${tid}. Please approve and credit my account.`);
+        window.open(`https://wa.me/${adminPhone}?text=${msg}`,'_blank');
+        alert('WhatsApp opened to contact admin. After admin confirms, they must manually credit your account. This demo cannot credit without admin/backend.');
+      });
+
+      // withdraw
+      $('withdrawReq').addEventListener('click', ()=>{
+        const amt = Number($('withdrawAmount').value);
+        const num = $('withdrawNumber').value.trim();
+        const s=getSession(); if(!s) return alert('Login to withdraw');
+        const db=loadDB(); const user=db[s];
+        if(!amt || !num) return alert('Enter amount and receiving number');
+        const min = user.hasWithdrawn ? 300 : 100;
+        if(amt < min) return alert(`Minimum withdraw is PKR ${min}`);
+        if(amt > user.balance) return alert('Insufficient balance');
+        // in real system admin would process transfer; here we simulate request creation
+        user.balance -= amt; user.hasWithdrawn = true; saveDB(db); render();
+        // prefill WhatsApp to admin to notify withdraw request
+        const msg = encodeURIComponent(`Hello admin, I (${s}) request withdrawal of PKR ${amt} to ${num}. Please process.`);
+        window.open(`https://wa.me/${adminPhone}?text=${msg}`,'_blank');
+        $('withdrawInfo').innerText = 'Withdraw request sent to admin via WhatsApp (simulated). Keep receipt.';
+      });
+
+      // invite link
+      $('copyInvite').addEventListener('click', ()=>{ $('inviteLink').select(); document.execCommand('copy'); alert('Invite link copied'); });
+
+      // Helpline admin link
+      $('waAdmin').setAttribute('href', `https://wa.me/${adminPhone}`);
+      $('waAdmin').setAttribute('target','_blank');
+
+      // render initial
+      handleRefParam(); render();
+
+      // menu quick show default
+      showPage('profile');
+    });
+
+    function handleRefParam(){
+      // If user opened with ?ref=emailToken, store it so signups credit referrer
+      const params = new URLSearchParams(location.search);
+      const ref = params.get('ref');
+      if(ref){ localStorage.setItem('easy_money_ref_by', ref); }
+    }
+
+    function render(){
+      const s=getSession(); const db=loadDB();
+      $('navUser').innerText = s || 'Guest';
+      if(s && db[s]){
+        const u=db[s];
+        $('profileName').innerText = u.name || s;
+        $('profileEmail').innerText = u.email || '';
+        $('profileBalance').innerText = 'PKR ' + (u.balance||0);
+        $('authOverlay').style.display='none';
+        if(u.avatar){ $('profilePic').style.backgroundImage = `url(${u.avatar})`; $('profilePic').innerText=''; $('profilePic').style.backgroundSize='cover'; }
+        else { $('profilePic').style.backgroundImage='none'; $('profilePic').innerText = (u.name||'U').slice(0,1).toUpperCase(); }
+        // invite link
+        const base = location.origin + location.pathname;
+        $('inviteLink').value = base + '?ref=' + encodeURIComponent(s);
+      } else {
+        $('profileName').innerText = 'Guest User';
+        $('profileEmail').innerText = 'not logged in';
+        $('profileBalance').innerText = 'PKR 0';
+        $('authOverlay').style.display='block';
+        $('profilePic').style.backgroundImage='none'; $('profilePic').innerText='A';
+        $('inviteLink').value = location.origin + location.pathname;
+      }
+    }
+
+    // NOTE: This is a front-end demo. To make payments real you must:
+    // 1) Build a backend (Node/PHP/Python) + database to store users, balances, transactions.
+    // 2) Integrate official payment APIs or reconcile wallet receipts with admin.
+    // 3) Secure authentication (hashed passwords), server-side validation, and HTTPS.
+    // 4) Implement admin dashboard to approve deposits and process withdrawals securely.
+
+  </script>
+</body>
+</html>
